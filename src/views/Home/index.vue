@@ -1,38 +1,32 @@
 <template>
   <el-container>
     <el-header>
-      <img class="logo" src="../../assets/logo.png" alt="" />
+      <img class="logo"
+           src="../../assets/logo.png"
+           alt="" />
       <span>初辰电商后台管理系统</span>
-      <el-button
-        type="primary"
-        title="退出"
-        icon="el-icon-user"
-        circle
-        @click="logout"
-      ></el-button>
+      <el-button type="primary"
+                 title="退出"
+                 icon="el-icon-user"
+                 circle
+                 @click="logout"></el-button>
     </el-header>
     <el-container>
       <el-aside width="202px">
-        <el-menu
-          :router="true"
-          default-active="2"
-          class="el-menu-vertical-demo"
-        >
-          <el-submenu
-            :index="menu.path"
-            v-for="menu in menuListL"
-            :key="menu.id"
-          >
+        <el-menu :router="true"
+                 default-active="2"
+                 class="el-menu-vertical-demo">
+          <el-submenu :index="menu.path"
+                      v-for="menu in menuListL"
+                      :key="menu.id">
             <template slot="title">
-              <i id="hticon" :class="iconList[menu.id]"></i>
+              <i id="hticon"
+                 :class="iconList[menu.id]"></i>
               <span>{{ menu.authName }}</span>
             </template>
-            <el-menu-item
-              :index="item.path"
-              v-for="item in menu.children"
-              :key="item.id"
-              >{{ item.authName }}</el-menu-item
-            >
+            <el-menu-item :index="item.path"
+                          v-for="item in menu.children"
+                          :key="item.id">{{ item.authName }}</el-menu-item>
           </el-submenu>
         </el-menu>
       </el-aside>
@@ -99,10 +93,13 @@ export default {
   .el-aside {
     background-color: #fff;
     border-right: 1px solid #ccc;
-    #hticon{
+    #hticon {
       margin-right: 10px;
       color: black;
       font-size: 18px;
+    }
+    ul {
+      border: none;
     }
     .collapse {
       color: rgb(66, 185, 131);

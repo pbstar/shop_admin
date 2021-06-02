@@ -18,7 +18,7 @@ Vue.use(ElementUI) */
 import {
   Form, FormItem, Input, Button, Message, Container, Header,
   Aside, Main, Menu, Submenu, MenuItem, MenuItemGroup, Row, Col,
-  Table, TableColumn, Switch, Dialog, MessageBox, Tag, Link, Tree
+  Table, TableColumn, Switch, Dialog, MessageBox, Tag, Link, Tree, Radio
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue
@@ -43,6 +43,7 @@ Vue
   .use(Tag)
   .use(Link)
   .use(Tree)
+  .use(Radio)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
 // 配置axios 的默认请求的基准地址

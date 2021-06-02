@@ -2,93 +2,128 @@
   <div class="users">
     <el-row>
       <el-col :span="6">
-        <el-input
-          placeholder="请输入内容"
-          v-model="keyword"
-          class="input-with-select"
-        >
-          <el-button slot="append" icon="el-icon-search"></el-button>
+        <el-input placeholder="请输入内容"
+                  v-model="keyword"
+                  class="input-with-select">
+          <el-button slot="append"
+                     icon="el-icon-search"></el-button>
         </el-input>
       </el-col>
       <el-col :span="12">
-        <el-button type="primary" style="margin-left: 30px" @click="addFormVisible=true">新增用户</el-button>
+        <el-button type="primary"
+                   style="margin-left: 30px"
+                   @click="addFormVisible=true">新增用户</el-button>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="24">
-        <el-table
-          :data="userList"
-          max-height="580"
-          border
-          style="width: 100%; margin-top: 30px"
-        >
-          <el-table-column prop="username" label="用户名">
+        <el-table :data="userList"
+                  max-height="580"
+                  border
+                  style="width: 100%; margin-top: 30px">
+          <el-table-column prop="username"
+                           label="用户名">
           </el-table-column>
-          <el-table-column prop="mobile" label="手机">
+          <el-table-column prop="mobile"
+                           label="手机">
           </el-table-column>
-          <el-table-column prop="email" label="地址"> </el-table-column>
+          <el-table-column prop="email"
+                           label="地址"> </el-table-column>
 
-          <el-table-column prop="role_name" label="角色"> </el-table-column>
-          <el-table-column
-            prop="create_time"
-            label="创建时间"
-          ></el-table-column>
+          <el-table-column prop="role_name"
+                           label="角色"> </el-table-column>
+          <el-table-column prop="create_time"
+                           label="创建时间"></el-table-column>
 
           <el-table-column label="用户状态">
             <template slot-scope="scope">
-              <el-switch
-                v-model="scope.row.mg_state"
-                @change="changeState(scope.row)"
-              >
+              <el-switch v-model="scope.row.mg_state"
+                         @change="changeState(scope.row)">
               </el-switch>
             </template>
           </el-table-column>
-          <el-table-column prop="operation" label="操作">
+          <el-table-column prop="operation"
+                           label="操作">
             <template slot-scope="scope">
-              <el-button
-                size="mini"
-                type="primary"
-                icon="el-icon-edit"
-                circle
-                @click="showEditDialog(scope.row.id)"
-                title="编辑用户"
-              >
+              <el-button size="mini"
+                         type="primary"
+                         icon="el-icon-edit"
+                         circle
+                         @click="showEditDialog(scope.row.id)"
+                         title="编辑用户">
               </el-button>
-              <el-button
-                size="mini"
-                type="danger"
-                icon="el-icon-delete"
-                circle
-                title="删除用户"
-                @click="delUser(scope.row)"
-              >
+              <el-button size="mini"
+                         type="info"
+                         icon="el-icon-setting"
+                         circle
+                         @click="showSetRoleDialog(scope.row.id)"
+                         title="分配角色">
+              </el-button>
+              <el-button size="mini"
+                         type="danger"
+                         icon="el-icon-delete"
+                         circle
+                         title="删除用户"
+                         @click="delUser(scope.row)">
               </el-button>
             </template>
           </el-table-column>
         </el-table>
       </el-col>
     </el-row>
-    <el-dialog
-      :title="isAdd ? '新增用户' : '编辑用户：' + userForm.username"
-      :visible.sync="addFormVisible"
-      @close="closeDialog">
-      <el-form ref="form" :model="userForm" :rules="addFormRulers">
-        <el-form-item v-if="isAdd" label="用户名" :label-width="formLabelWidth" prop="username">
-          <el-input v-model="userForm.username" autocomplete="off"></el-input>
+    <el-dialog :title="isAdd ? '新增用户' : '编辑用户：' + userForm.username"
+               :visible.sync="addFormVisible"
+               @close="closeDialog">
+      <el-form ref="form"
+               :model="userForm"
+               :rules="addFormRulers">
+        <el-form-item v-if="isAdd"
+                      label="用户名"
+                      :label-width="formLabelWidth"
+                      prop="username">
+          <el-input v-model="userForm.username"
+                    autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item v-if="isAdd" label="密码" :label-width="formLabelWidth" prop="password">
-          <el-input v-model="userForm.password" autocomplete="off"></el-input>
+        <el-form-item v-if="isAdd"
+                      label="密码"
+                      :label-width="formLabelWidth"
+                      prop="password">
+          <el-input v-model="userForm.password"
+                    autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="手机" :label-width="formLabelWidth" prop="mobile">
-          <el-input v-model="userForm.mobile" autocomplete="off"></el-input>
+        <el-form-item label="手机"
+                      :label-width="formLabelWidth"
+                      prop="mobile">
+          <el-input v-model="userForm.mobile"
+                    autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱" :label-width="formLabelWidth" prop="email">
-          <el-input v-model="userForm.email" autocomplete="off"></el-input>
+        <el-form-item label="邮箱"
+                      :label-width="formLabelWidth"
+                      prop="email">
+          <el-input v-model="userForm.email"
+                    autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div slot="footer"
+           class="dialog-footer">
         <el-button @click="addFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveUser('form')">确 定</el-button>
+        <el-button type="primary"
+                   @click="saveUser('form')">确 定</el-button>
+      </div>
+    </el-dialog>
+    <!-- 分配角色对话框 -->
+    <el-dialog title="分配角色"
+               :visible.sync="setRoleDialogVisible"
+               @close="closeDialog">
+      <el-radio v-model="radio"
+                v-for="item in rolesList"
+                :key="item.id"
+                :label="item.id">{{item.roleName}}</el-radio>
+      <div slot="footer"
+           class="dialog-footer">
+        <el-button @click="closeDialog">取 消</el-button>
+        <el-button type="primary"
+                   @click="saveRole">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -121,7 +156,10 @@ export default {
       formLabelWidth: '70px',
       value1: true,
       value2: false,
+      radio: '1',
+      userId: '',
       addFormVisible: false,
+      setRoleDialogVisible: false,
       id: -1,
       userForm: {
         username: '',
@@ -129,6 +167,7 @@ export default {
         mobile: '',
         email: ''
       },
+      rolesList: [],
       addFormRulers: {
         username: [
           {
@@ -263,7 +302,28 @@ export default {
       this.userForm.mobile = data.mobile
       this.userForm.email = data.email
       this.addFormVisible = true
-      // console.log(id)
+    },
+    async showSetRoleDialog (id) {
+      const { data: res1 } = await this.$http.get('roles')
+      if (res1.meta.status !== 200) { return this.$message.error('获取角色列表失败') }
+      this.rolesList = res1.data
+      this.userId = id
+      const { data: res2 } = await this.$http.get('users/' + id)
+      if (res2.meta.status !== 200) { return this.$message.error('获取自身角色失败') }
+      this.radio = res2.data.rid
+      this.setRoleDialogVisible = true
+    },
+    async saveRole () {
+      const { data: res } = await this.$http.put('users/' + this.userId + '/role', {
+        rid: this.radio
+      })
+      if (res.meta.status !== 200) { return this.$message.error('分配失败') }
+      this.setRoleDialogVisible = false
+      this.loadData()
+      this.$message({
+        type: 'success',
+        message: res.meta.msg
+      })
     },
     async delUser (userInfo) {
       try {
